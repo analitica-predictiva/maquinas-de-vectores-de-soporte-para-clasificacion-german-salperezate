@@ -211,13 +211,6 @@ def pregunta_03():
     # Cree un objeto ColumnTransformer que aplique OneHotEncoder a las columnas
     # tipo texto. Use make_column_selector para seleccionar las columnas. Las
     # columnas numéricas no deben ser transformadas.
-    # columnTransformer = make_column_transformer(
-    #     (
-    #         ____(),
-    #         ____(____=____),
-    #     ),
-    #     remainder=____,
-    # )
     columnTransformer = make_column_transformer(
         (
             OneHotEncoder(),
@@ -227,12 +220,6 @@ def pregunta_03():
     )
 
     # Cree un pipeline que contenga el columnTransformer y el modelo SVC.
-    # pipeline = ____(
-    #     steps=[
-    #         ("____", ____),
-    #         ("____", ____),
-    #     ],
-    # )
     pipeline = Pipeline(
         steps=[
             ("columnTransformer", columnTransformer),
@@ -241,7 +228,6 @@ def pregunta_03():
     )
 
     # Entrene el pipeline con los datos de entrenamiento.
-    # ____.____(____, ____)
     pipeline.fit(X_train, y_train)
 
     # # Retorne el pipeline entrenado
@@ -254,7 +240,7 @@ def pregunta_04():
     """
 
     # Importe confusion_matrix
-    from ____ import ____
+    from sklearn.metrics import confusion_matrix
 
     # Obtenga el pipeline de la pregunta 3.
     pipeline = pregunta_03()
@@ -263,14 +249,23 @@ def pregunta_04():
     X_train, X_test, y_train, y_test = pregunta_02()
 
     # Evalúe el pipeline con los datos de entrenamiento usando la matriz de confusion.
-    cfm_train = ____(
-        y_true=____,
-        y_pred=____.____(____),
+    # cfm_train = ____(
+    #     y_true=____,
+    #     y_pred=____.____(____),
+    # )
+
+    # cfm_test = ____(
+    #     y_true=____,
+    #     y_pred=____.____(____),
+    # )
+    cfm_train = confusion_matrix(
+        y_true=y_train,
+        y_pred=pipeline.predict(X_train),
     )
 
-    cfm_test = ____(
-        y_true=____,
-        y_pred=____.____(____),
+    cfm_test = confusion_matrix(
+        y_true=y_test,
+        y_pred=pipeline.predict(X_test),
     )
 
     # Retorne la matriz de confusion de entrenamiento y prueba
